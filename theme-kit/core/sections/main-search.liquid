@@ -1,0 +1,51 @@
+{%- comment -%}
+  CORE — search results page.
+  CONTRACT: product results render the SKIN's card-product snippet.
+{%- endcomment -%}
+
+<section class="core-main-search core-container" data-section-id="{{ section.id }}">
+  <h1 class="core-main-search__title">{{ 'templates.search.title' | t }}</h1>
+
+  <form action="{{ routes.search_url }}" method="get" role="search" class="core-search-form">
+    <label class="sr-only" for="SearchInput">{{ 'templates.search.title' | t }}</label>
+    <input
+      class="core-input"
+      type="search"
+      id="SearchInput"
+      name="q"
+      value="{{ search.terms | escape }}"
+      placeholder="{{ 'templates.search.placeholder' | t }}"
+    >
+    <button type="submit" class="core-button core-button--primary">{{ 'templates.search.submit' | t }}</button>
+  </form>
+
+  {%- if search.performed -%}
+    {%- if search.results_count == 0 -%}
+      <p>{{ 'templates.search.no_results' | t: terms: search.terms }}</p>
+    {%- else -%}
+      {%- paginate search.results by 24 -%}
+        <div class="core-product-grid" style="--grid-columns: 4;">
+          {%- for item in search.results -%}
+            {%- case item.object_type -%}
+              {%- when 'product' -%}
+                {% render 'card-product', product: item %}
+              {%- when 'article' -%}
+                <a class="core-search-result" href="{{ item.url }}">{{ item.title }}</a>
+              {%- when 'page' -%}
+                <a class="core-search-result" href="{{ item.url }}">{{ item.title }}</a>
+            {%- endcase -%}
+          {%- endfor -%}
+        </div>
+        {% render 'core-pagination', paginate: paginate %}
+      {%- endpaginate -%}
+    {%- endif -%}
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Search page",
+  "class": "section-main-search",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "heading": "Welcome to our store",
+        "cta_label": "Shop now",
+        "cta_link": "shopify://collections/all"
+      }
+    }
+  },
+  "order": ["hero"]
+}

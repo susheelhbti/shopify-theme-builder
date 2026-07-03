@@ -1,0 +1,22 @@
+{%- comment -%}
+  SKIN — product card (contract obligation: every skin provides this).
+  Presentation only; price/badges come from core-price.
+  Params: product
+{%- endcomment -%}
+
+{{ 'card-product.css' | asset_url | stylesheet_tag }}
+
+<article class="skin-card-product">
+  <a class="skin-card-product__link" href="{{ product.url }}">
+    <div class="skin-card-product__media">
+      {%- if product.featured_media -%}
+        {{ product.featured_media
+          | image_url: width: 800
+          | image_tag: widths: '360, 540, 800', sizes: '(min-width: 990px) 25vw, 50vw', loading: 'lazy', alt: product.featured_media.alt
+        }}
+      {%- endif -%}
+    </div>
+    <h3 class="skin-card-product__title">{{ product.title }}</h3>
+  </a>
+  {% render 'core-price', product: product %}
+</article>

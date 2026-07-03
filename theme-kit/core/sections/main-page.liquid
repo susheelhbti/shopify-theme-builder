@@ -1,0 +1,16 @@
+{%- comment -%} CORE — standard page {%- endcomment -%}
+
+<section class="core-main-page core-container">
+  <h1 class="core-main-page__title">{{ page.title }}</h1>
+  <div class="core-main-page__content rte">
+    {{ page.content }}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Page",
+  "class": "section-main-page",
+  "settings": []
+}
+{% endschema %}

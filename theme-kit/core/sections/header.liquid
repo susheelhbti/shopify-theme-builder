@@ -1,0 +1,54 @@
+{%- comment -%}
+  CORE — header (structure + commerce hooks; skins restyle via tokens/CSS only)
+  Stable hooks: [data-cart-count], [data-cart-link]
+{%- endcomment -%}
+
+<header class="core-header">
+  <div class="core-container core-header__inner">
+    <a class="core-header__logo" href="{{ routes.root_url }}">
+      {%- if section.settings.logo -%}
+        {{ section.settings.logo | image_url: width: 400 | image_tag: widths: '200, 400', sizes: '200px', alt: shop.name, class: 'core-header__logo-image' }}
+      {%- else -%}
+        <span class="core-header__shop-name">{{ shop.name }}</span>
+      {%- endif -%}
+    </a>
+
+    <nav class="core-header__nav" role="navigation" aria-label="{{ 'sections.header.menu' | t }}">
+      {%- for link in section.settings.menu.links -%}
+        <a class="core-header__nav-link{% if link.current %} is-current{% endif %}" href="{{ link.url }}">
+          {{- link.title -}}
+        </a>
+      {%- endfor -%}
+    </nav>
+
+    <div class="core-header__actions">
+      <a class="core-header__action" href="{{ routes.search_url }}">
+        {{ 'templates.search.title' | t }}
+      </a>
+      <a class="core-header__action" href="{{ routes.cart_url }}" data-cart-link>
+        {{ 'sections.header.cart' | t }}
+        <span class="core-cart-count" data-cart-count>{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

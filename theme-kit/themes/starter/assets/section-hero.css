@@ -1,0 +1,29 @@
+/* SKIN — hero. Token-only values, scoped under .skin-hero. */
+
+.skin-hero__inner {
+  display: grid;
+  gap: var(--space-lg);
+  align-items: center;
+  padding-block: var(--space-xl);
+}
+
+@media (min-width: 990px) {
+  .skin-hero__inner {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.skin-hero__media img {
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.skin-hero__heading {
+  font-size: calc(3rem * var(--font-heading-scale));
+}
+
+.skin-hero__text {
+  color: var(--color-muted);
+  max-width: 52ch;
+  margin-block: var(--space-md);
+}

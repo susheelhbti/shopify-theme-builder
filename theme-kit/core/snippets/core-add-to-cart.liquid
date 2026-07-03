@@ -1,0 +1,31 @@
+{%- comment -%}
+  CORE — add to cart button (must live inside a product form)
+  Params:
+    product: product object (required)
+  Stable hooks: [data-add-to-cart], [data-add-to-cart-text], [data-add-to-cart-spinner]
+  Data labels are consumed by core-product.js when variant availability changes.
+{%- endcomment -%}
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+-%}
+
+<button
+  type="submit"
+  name="add"
+  class="core-button core-button--primary core-add-to-cart"
+  data-add-to-cart
+  data-label-add="{{ 'products.product.add_to_cart' | t | escape }}"
+  data-label-sold-out="{{ 'products.product.sold_out' | t | escape }}"
+  data-label-unavailable="{{ 'products.product.unavailable' | t | escape }}"
+  {% unless current_variant.available %}disabled{% endunless %}
+>
+  <span data-add-to-cart-text>
+    {%- if current_variant.available -%}
+      {{ 'products.product.add_to_cart' | t }}
+    {%- else -%}
+      {{ 'products.product.sold_out' | t }}
+    {%- endif -%}
+  </span>
+  <span class="core-spinner" data-add-to-cart-spinner hidden aria-hidden="true"></span>
+</button>

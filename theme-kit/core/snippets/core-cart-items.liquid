@@ -1,0 +1,50 @@
+{%- comment -%}
+  CORE — cart line items (use inside main-cart's cart form)
+  No params (reads global cart object).
+  Stable hooks:
+    [data-cart-items]                    container, re-rendered after updates
+    [data-cart-line] (data-line-key)     one per line
+    input[data-line-quantity]            quantity input (name="updates[]")
+    a[data-line-remove]                  remove link (no-JS fallback works)
+{%- endcomment -%}
+
+<div class="core-cart-items" data-cart-items>
+  {%- for item in cart.items -%}
+    <div class="core-cart-line" data-cart-line data-line-key="{{ item.key }}">
+      <a class="core-cart-line__media" href="{{ item.url }}">
+        {%- if item.image -%}
+          {{ item.image | image_url: width: 240 | image_tag: widths: '120, 240', sizes: '120px', loading: 'lazy', alt: item.image.alt }}
+        {%- endif -%}
+      </a>
+
+      <div class="core-cart-line__details">
+        <a class="core-cart-line__title" href="{{ item.url }}">{{ item.product.title }}</a>
+        {%- unless item.product.has_only_default_variant -%}
+          <p class="core-cart-line__variant">{{ item.variant.title }}</p>
+        {%- endunless -%}
+        {%- for discount in item.line_level_discount_allocations -%}
+          <p class="core-cart-line__discount">{{ discount.discount_application.title }}</p>
+        {%- endfor -%}
+        <a
+          class="core-cart-line__remove"
+          href="{{ item.url_to_remove }}"
+          data-line-remove
+          data-line-key="{{ item.key }}"
+        >{{ 'sections.cart.remove' | t }}</a>
+      </div>
+
+      <div class="core-cart-line__quantity">
+        {% render 'core-quantity-input',
+          id: 'CartQty-' | append: forloop.index,
+          name: 'updates[]',
+          value: item.quantity,
+          min: 0
+        %}
+      </div>
+
+      <div class="core-cart-line__price">
+        {{ item.final_line_price | money }}
+      </div>
+    </div>
+  {%- endfor -%}
+</div>

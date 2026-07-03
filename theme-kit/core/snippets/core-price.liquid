@@ -1,0 +1,41 @@
+{%- comment -%}
+  CORE — price display (logic only, no visual opinion)
+  Params:
+    product: product object (required unless variant given)
+    variant: variant object (optional; wins over product)
+  Stable hooks (contract v0.1):
+    [data-core-price]            wrapper, live-updated on variant change
+    [data-price]                 current price text
+    [data-compare-price]         compare-at price text (hidden when not on sale)
+    [data-price-badge-sale]      sale badge (hidden when not on sale)
+    .is-on-sale                  state class on wrapper
+{%- endcomment -%}
+
+{%- liquid
+  if variant
+    assign target = variant
+  else
+    assign target = product.selected_or_first_available_variant
+  endif
+  assign on_sale = false
+  if target.compare_at_price > target.price
+    assign on_sale = true
+  endif
+-%}
+
+<div class="core-price{% if on_sale %} is-on-sale{% endif %}" data-core-price>
+  <span class="core-price__current" data-price>
+    {{- target.price | money -}}
+  </span>
+  <s class="core-price__compare" data-compare-price {% unless on_sale %}hidden{% endunless %}>
+    {{- target.compare_at_price | money -}}
+  </s>
+  <span class="core-price__badge" data-price-badge-sale {% unless on_sale %}hidden{% endunless %}>
+    {{- 'products.product.on_sale' | t -}}
+  </span>
+  {%- if target.unit_price_measurement -%}
+    <span class="core-price__unit" data-unit-price>
+      {{- target.unit_price | money -}}/{{- target.unit_price_measurement.reference_unit -}}
+    </span>
+  {%- endif -%}
+</div>

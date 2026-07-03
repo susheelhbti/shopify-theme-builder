@@ -1,0 +1,31 @@
+{%- comment -%}
+  CORE — footer (structure only)
+{%- endcomment -%}
+
+<footer class="core-footer">
+  <div class="core-container core-footer__inner">
+    <nav class="core-footer__nav" role="navigation">
+      {%- for link in section.settings.menu.links -%}
+        <a class="core-footer__link" href="{{ link.url }}">{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+    <p class="core-footer__copyright">
+      &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}
+    </p>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "class": "section-footer",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Footer menu",
+      "default": "footer"
+    }
+  ]
+}
+{% endschema %}

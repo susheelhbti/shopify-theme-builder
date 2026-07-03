@@ -1,0 +1,50 @@
+{%- comment -%}
+  CORE — cart page. AJAX behavior in core-cart.js re-renders this section
+  through the Section Rendering API after quantity changes.
+  Stable hooks: <core-cart data-section-id>, [data-cart-subtotal], [data-cart-form]
+{%- endcomment -%}
+
+<core-cart data-section-id="{{ section.id }}">
+  <section class="core-main-cart core-container">
+    <h1 class="core-main-cart__title">{{ 'sections.cart.title' | t }}</h1>
+
+    {%- if cart.item_count == 0 -%}
+      <p class="core-main-cart__empty">{{ 'sections.cart.empty' | t }}</p>
+      <a class="core-button core-button--primary" href="{{ routes.all_products_collection_url }}">
+        {{ 'general.continue_shopping' | t }}
+      </a>
+    {%- else -%}
+      <form action="{{ routes.cart_url }}" method="post" class="core-cart-form" data-cart-form>
+        {% render 'core-cart-items' %}
+
+        <div class="core-cart-footer">
+          {%- if settings.cart_show_note -%}
+            <div class="core-cart-footer__note">
+              <label class="core-label" for="CartNote">{{ 'sections.cart.note' | t }}</label>
+              <textarea class="core-textarea" id="CartNote" name="note" data-cart-note>{{ cart.note }}</textarea>
+            </div>
+          {%- endif -%}
+
+          <div class="core-cart-footer__summary">
+            <p class="core-cart-footer__subtotal">
+              <span>{{ 'sections.cart.subtotal' | t }}</span>
+              <span data-cart-subtotal>{{ cart.total_price | money }}</span>
+            </p>
+            <p class="core-cart-footer__taxes-note">{{ 'sections.cart.taxes_note' | t }}</p>
+            <button type="submit" name="checkout" class="core-button core-button--primary core-cart-footer__checkout">
+              {{ 'sections.cart.checkout' | t }}
+            </button>
+          </div>
+        </div>
+      </form>
+    {%- endif -%}
+  </section>
+</core-cart>
+
+{% schema %}
+{
+  "name": "Cart page",
+  "class": "section-main-cart",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,87 @@
+{%- comment -%}
+  LAYER 2 — TOKEN BRIDGE (core, do not edit per theme)
+  Converts theme settings into CSS custom properties.
+  RULE R2: all skin + core CSS must consume these vars; never hardcode values.
+  Adding a token = add a setting in settings_schema.json + a line here (with default).
+{%- endcomment -%}
+
+{%- liquid
+  assign body_font = settings.type_body_font
+  assign heading_font = settings.type_heading_font
+  assign body_font_bold = body_font | font_modify: 'weight', 'bolder'
+-%}
+
+{{ body_font | font_face: font_display: 'swap' }}
+{{ heading_font | font_face: font_display: 'swap' }}
+{% if body_font_bold %}{{ body_font_bold | font_face: font_display: 'swap' }}{% endif %}
+
+<style>
+  :root {
+    /* ---- Color tokens ---- */
+    --color-background: {{ settings.color_background }};
+    --color-foreground: {{ settings.color_foreground }};
+    --color-foreground-rgb: {{ settings.color_foreground.red }}, {{ settings.color_foreground.green }}, {{ settings.color_foreground.blue }};
+    --color-primary: {{ settings.color_primary }};
+    --color-on-primary: {{ settings.color_on_primary }};
+    --color-accent: {{ settings.color_accent }};
+    --color-border: rgba(var(--color-foreground-rgb), 0.15);
+    --color-muted: rgba(var(--color-foreground-rgb), 0.65);
+    --color-error: #b3261e;
+    --color-success: #1e7f4f;
+
+    /* ---- Typography tokens ---- */
+    --font-body-family: {{ body_font.family }}, {{ body_font.fallback_families }};
+    --font-body-weight: {{ body_font.weight }};
+    --font-body-weight-bold: {{ body_font_bold.weight | default: 700 }};
+    --font-body-style: {{ body_font.style }};
+    --font-heading-family: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+    --font-heading-weight: {{ heading_font.weight }};
+    --font-heading-style: {{ heading_font.style }};
+    --font-size-base: {{ settings.type_base_size | default: 16 }}px;
+    --font-heading-scale: {{ settings.type_heading_scale | default: 100 | divided_by: 100.0 }};
+    --font-line-height: 1.55;
+    --font-heading-line-height: 1.2;
+
+    /* ---- Spacing tokens (scale of one base unit) ---- */
+    --space-unit: {{ settings.spacing_base | default: 8 }}px;
+    --space-xs: calc(var(--space-unit) * 0.5);
+    --space-sm: var(--space-unit);
+    --space-md: calc(var(--space-unit) * 2);
+    --space-lg: calc(var(--space-unit) * 4);
+    --space-xl: calc(var(--space-unit) * 8);
+    --space-section: calc(var(--space-unit) * {{ settings.spacing_section_multiplier | default: 8 }});
+
+    /* ---- Layout tokens ---- */
+    --page-width: {{ settings.page_width | default: 1200 }}px;
+    --page-gutter: var(--space-md);
+
+    /* ---- Shape tokens ---- */
+    --radius-button: {{ settings.button_radius | default: 4 }}px;
+    --radius-card: {{ settings.card_radius | default: 8 }}px;
+    --radius-input: {{ settings.input_radius | default: 4 }}px;
+
+    /* ---- Elevation tokens ---- */
+    {%- case settings.shadow_style %}
+    {%- when 'none' %}
+    --shadow-card: none;
+    {%- when 'soft' %}
+    --shadow-card: 0 2px 12px rgba(var(--color-foreground-rgb), 0.08);
+    {%- when 'strong' %}
+    --shadow-card: 0 8px 30px rgba(var(--color-foreground-rgb), 0.18);
+    {%- else %}
+    --shadow-card: 0 2px 12px rgba(var(--color-foreground-rgb), 0.08);
+    {%- endcase %}
+
+    /* ---- Motion tokens ---- */
+    --duration-fast: 150ms;
+    --duration-base: 250ms;
+    --easing-base: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --duration-fast: 0ms;
+      --duration-base: 0ms;
+    }
+  }
+</style>

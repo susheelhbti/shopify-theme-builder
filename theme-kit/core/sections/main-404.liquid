@@ -1,0 +1,17 @@
+{%- comment -%} CORE — 404 {%- endcomment -%}
+
+<section class="core-main-404 core-container">
+  <h1>{{ 'templates.404.title' | t }}</h1>
+  <p>{{ 'templates.404.subtext' | t }}</p>
+  <a class="core-button core-button--primary" href="{{ routes.root_url }}">
+    {{ 'general.continue_shopping' | t }}
+  </a>
+</section>
+
+{% schema %}
+{
+  "name": "404 page",
+  "class": "section-main-404",
+  "settings": []
+}
+{% endschema %}

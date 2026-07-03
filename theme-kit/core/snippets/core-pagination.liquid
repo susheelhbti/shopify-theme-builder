@@ -1,0 +1,28 @@
+{%- comment -%}
+  CORE — pagination (use inside {% paginate %})
+  Params:
+    paginate: the paginate object (required)
+  Stable hooks: [data-core-pagination]
+{%- endcomment -%}
+
+{%- if paginate.pages > 1 -%}
+  <nav class="core-pagination" data-core-pagination role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
+    {%- if paginate.previous -%}
+      <a class="core-pagination__item" href="{{ paginate.previous.url }}" rel="prev">
+        {{- 'general.pagination.previous' | t -}}
+      </a>
+    {%- endif -%}
+    {%- for part in paginate.parts -%}
+      {%- if part.is_link -%}
+        <a class="core-pagination__item" href="{{ part.url }}">{{ part.title }}</a>
+      {%- else -%}
+        <span class="core-pagination__item is-current" aria-current="page">{{ part.title }}</span>
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if paginate.next -%}
+      <a class="core-pagination__item" href="{{ paginate.next.url }}" rel="next">
+        {{- 'general.pagination.next' | t -}}
+      </a>
+    {%- endif -%}
+  </nav>
+{%- endif -%}

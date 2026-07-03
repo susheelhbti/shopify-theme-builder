@@ -1,0 +1,173 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Theme Kit Core",
+    "theme_version": "0.1.0",
+    "theme_author": "Your Company",
+    "theme_documentation_url": "https://example.com/docs",
+    "theme_support_url": "https://example.com/support"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_foreground",
+        "label": "Text",
+        "default": "#1a1a1a"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary (buttons, links)",
+        "default": "#1a1a1a"
+      },
+      {
+        "type": "color",
+        "id": "color_on_primary",
+        "label": "Text on primary",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent",
+        "default": "#4a4a4a"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "type_heading_font",
+        "label": "Heading font",
+        "default": "assistant_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font",
+        "label": "Body font",
+        "default": "assistant_n4"
+      },
+      {
+        "type": "range",
+        "id": "type_base_size",
+        "label": "Base font size",
+        "min": 13,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "id": "type_heading_scale",
+        "label": "Heading size scale",
+        "min": 80,
+        "max": 150,
+        "step": 5,
+        "unit": "%",
+        "default": 100
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "label": "Page width",
+        "min": 1000,
+        "max": 1600,
+        "step": 50,
+        "unit": "px",
+        "default": 1200
+      },
+      {
+        "type": "range",
+        "id": "spacing_base",
+        "label": "Spacing unit",
+        "min": 4,
+        "max": 12,
+        "step": 1,
+        "unit": "px",
+        "default": 8
+      },
+      {
+        "type": "range",
+        "id": "spacing_section_multiplier",
+        "label": "Space between sections (x unit)",
+        "min": 4,
+        "max": 16,
+        "step": 1,
+        "default": 8
+      }
+    ]
+  },
+  {
+    "name": "Shape and depth",
+    "settings": [
+      {
+        "type": "range",
+        "id": "button_radius",
+        "label": "Button corner radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "unit": "px",
+        "default": 4
+      },
+      {
+        "type": "range",
+        "id": "card_radius",
+        "label": "Card corner radius",
+        "min": 0,
+        "max": 32,
+        "step": 2,
+        "unit": "px",
+        "default": 8
+      },
+      {
+        "type": "range",
+        "id": "input_radius",
+        "label": "Input corner radius",
+        "min": 0,
+        "max": 24,
+        "step": 2,
+        "unit": "px",
+        "default": 4
+      },
+      {
+        "type": "select",
+        "id": "shadow_style",
+        "label": "Card shadow",
+        "options": [
+          { "value": "none", "label": "None" },
+          { "value": "soft", "label": "Soft" },
+          { "value": "strong", "label": "Strong" }
+        ],
+        "default": "soft"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cart_show_note",
+        "label": "Show order note field",
+        "default": true
+      }
+    ]
+  }
+]

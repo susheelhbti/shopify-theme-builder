@@ -1,0 +1,19 @@
+{
+  "current": {
+    "color_background": "#ffffff",
+    "color_foreground": "#1a1a1a",
+    "color_primary": "#1a1a1a",
+    "color_on_primary": "#ffffff",
+    "color_accent": "#4a4a4a",
+    "type_base_size": 16,
+    "type_heading_scale": 100,
+    "page_width": 1200,
+    "spacing_base": 8,
+    "spacing_section_multiplier": 8,
+    "button_radius": 4,
+    "card_radius": 8,
+    "input_radius": 4,
+    "shadow_style": "soft",
+    "cart_show_note": true
+  }
+}

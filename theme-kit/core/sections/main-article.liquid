@@ -1,0 +1,22 @@
+{%- comment -%} CORE — blog article {%- endcomment -%}
+
+<article class="core-main-article core-container">
+  <header class="core-main-article__header">
+    <h1 class="core-main-article__title">{{ article.title }}</h1>
+    <p class="core-main-article__meta">{{ article.published_at | date: format: 'date' }}</p>
+  </header>
+  {%- if article.image -%}
+    {{ article.image | image_url: width: 1500 | image_tag: widths: '720, 1200, 1500', sizes: '100vw', alt: article.image.alt }}
+  {%- endif -%}
+  <div class="core-main-article__content rte">
+    {{ article.content }}
+  </div>
+</article>
+
+{% schema %}
+{
+  "name": "Article",
+  "class": "section-main-article",
+  "settings": []
+}
+{% endschema %}

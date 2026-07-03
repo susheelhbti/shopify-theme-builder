@@ -1,0 +1,54 @@
+{%- comment -%}
+  CORE — collection page.
+  CONTRACT: renders the SKIN's card-product snippet for each product.
+  Every skin MUST provide snippets/card-product.liquid accepting:
+    product: product object
+{%- endcomment -%}
+
+<section class="core-main-collection core-container" data-section-id="{{ section.id }}">
+  <header class="core-main-collection__header">
+    <h1 class="core-main-collection__title">{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}
+      <div class="core-main-collection__description rte">{{ collection.description }}</div>
+    {%- endif -%}
+  </header>
+
+  {%- paginate collection.products by section.settings.products_per_page -%}
+    <div class="core-product-grid" style="--grid-columns: {{ section.settings.columns }};">
+      {%- for product in collection.products -%}
+        {% render 'card-product', product: product %}
+      {%- else -%}
+        <p>{{ 'sections.collection.empty' | t }}</p>
+      {%- endfor -%}
+    </div>
+
+    {% render 'core-pagination', paginate: paginate %}
+  {%- endpaginate -%}
+</section>
+
+{% schema %}
+{
+  "name": "Collection page",
+  "class": "section-main-collection",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Columns (desktop)",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    }
+  ]
+}
+{% endschema %}

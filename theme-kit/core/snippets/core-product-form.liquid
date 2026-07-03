@@ -1,0 +1,29 @@
+{%- comment -%}
+  CORE — product purchase form (variant picker + quantity + add to cart)
+  Params:
+    product: product object (required)
+    section_id: section rendering this form (required, for unique ids)
+  Stable hooks:
+    form[data-core-product-form]  intercepted by core-cart.js (AJAX add)
+    input[name="id"]              current variant id, updated by picker
+{%- endcomment -%}
+
+{%- liquid
+  assign form_id = 'ProductForm-' | append: section_id
+  assign current_variant = product.selected_or_first_available_variant
+-%}
+
+{%- form 'product', product, id: form_id, class: 'core-product-form', data-core-product-form: '' -%}
+  <input type="hidden" name="id" value="{{ current_variant.id }}">
+
+  {% render 'core-variant-picker', product: product, form_id: form_id %}
+
+  <div class="core-product-form__row">
+    {% render 'core-quantity-input', id: form_id | append: '-quantity' %}
+    {% render 'core-add-to-cart', product: product %}
+  </div>
+
+  <p class="core-form-status" data-form-status role="status" aria-live="polite"></p>
+{%- endform -%}
+
+<script src="{{ 'core-product.js' | asset_url }}" defer></script>

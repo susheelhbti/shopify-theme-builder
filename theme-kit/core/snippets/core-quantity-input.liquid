@@ -1,0 +1,31 @@
+{%- comment -%}
+  CORE — quantity input with +/- controls
+  Params:
+    id: unique input id (required)
+    name: input name (default 'quantity')
+    value: initial value (default 1)
+    min: minimum (default 1)
+  Stable hooks: <core-quantity>, [data-quantity-input], [data-quantity-decrease], [data-quantity-increase]
+{%- endcomment -%}
+
+{%- liquid
+  assign qty_name = name | default: 'quantity'
+  assign qty_value = value | default: 1
+  assign qty_min = min | default: 1
+-%}
+
+<core-quantity class="core-quantity">
+  <label class="sr-only" for="{{ id }}">{{ 'products.product.quantity' | t }}</label>
+  <button type="button" class="core-quantity__button" data-quantity-decrease aria-label="{{ 'products.product.decrease_quantity' | t }}">&minus;</button>
+  <input
+    class="core-quantity__input"
+    type="number"
+    id="{{ id }}"
+    name="{{ qty_name }}"
+    value="{{ qty_value }}"
+    min="{{ qty_min }}"
+    inputmode="numeric"
+    data-quantity-input
+  >
+  <button type="button" class="core-quantity__button" data-quantity-increase aria-label="{{ 'products.product.increase_quantity' | t }}">+</button>
+</core-quantity>
